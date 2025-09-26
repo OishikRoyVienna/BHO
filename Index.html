@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bho Kulturverein</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+    }
+
+    .lang-switcher {
+      display: flex;
+      gap: 10px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-size: 0.9rem;
+      color: #555;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .lang-btn:hover,
+    .lang-btn.active {
+      color: #000;
+      background: #f0f0f0;
+    }
+
+    .banner {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .banner-slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .banner-slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .banner-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .banner-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .banner-dot.active {
+      background: white;
+    }
+
+    main {
+      padding: 0 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .content-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #222;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .event {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .event:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .event-name {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+      color: #111;
+    }
+
+    .event-date {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .event-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .event-date-day {
+      font-weight: 500;
+      min-width: 130px;
+    }
+
+    .event-date-weekday {
+      color: #777;
+      min-width: 90px;
+    }
+
+    .map-container {
+      margin-top: 1.25rem;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      height: 300px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .floating-contact {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      background: white;
+      padding: 1.25rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+      z-index: 99;
+      width: 220px;
+      text-align: center;
+      max-width: calc(100% - 40px);
+    }
+
+    .floating-contact h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .floating-contact p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .floating-contact a {
+      color: #555;
+      text-decoration: none;
+      display: block;
+    }
+
+    .floating-contact a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 767px) {
+      .banner {
+        height: 250px;
+      }
+      
+      header {
+        padding: 1rem;
+      }
+      
+      .logo {
+        height: 45px;
+      }
+      
+      .event-date-day,
+      .event-date-weekday {
+        min-width: auto;
+      }
+      
+      .event-list li {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      
+      .map-container {
+        height: 250px;
+      }
+      
+      .floating-contact {
+        width: 200px;
+        right: 16px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Bho Kulturverein Logo" class="logo">
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="de">Deutsch</button>
+      <button class="lang-btn" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="bn">বাংলা</button>
+    </div>
+  </header>
+
+  <div class="banner">
+    <div class="banner-slides" id="bannerSlides">
+      <div class="banner-slide" style="background-image: url('banner1.jpg')"></div>
+      <div class="banner-slide" style="background-image: url('banner2.jpg')"></div>
+      <div class="banner-slide" style="background-image: url('banner3.jpg')"></div>
+    </div>
+    <div class="banner-dots" id="bannerDots">
+      <span class="banner-dot active" data-index="0"></span>
+      <span class="banner-dot" data-index="1"></span>
+      <span class="banner-dot" data-index="2"></span>
+    </div>
+  </div>
+
+  <main>
+    <div class="content-grid">
+      <div class="section">
+        <h2 data-key="futureEvents">Zukünftige Events</h2>
+        <div class="event">
+          <div class="event-name" data-key="durgaPuja">Durga Puja / Navaratri</div>
+          <ul class="event-list">
+            <li>
+              <span class="event-date-day">28. September 2025</span>
+              <span class="event-date-weekday">Sonntag</span>
+              <span data-key="mahaSashthi">Maha Sashthi</span>
+            </li>
+            <li>
+              <span class="event-date-day">29. September 2025</span>
+              <span class="event-date-weekday">Montag</span>
+              <span data-key="mahaSaptami">Maha Saptami</span>
+            </li>
+            <li>
+              <span class="event-date-day">30. September 2025</span>
+              <span class="event-date-weekday">Dienstag</span>
+              <span data-key="mahaAshtami">Maha Ashtami</span>
+            </li>
+            <li>
+              <span class="event-date-day">1. Oktober 2025</span>
+              <span class="event-date-weekday">Mittwoch</span>
+              <span data-key="mahaNavami">Maha Navami</span>
+            </li>
+            <li>
+              <span class="event-date-day">2. Oktober 2025</span>
+              <span class="event-date-weekday">Donnerstag</span>
+              <span data-key="vijayaDashami">Vijaya Dashami</span>
+            </li>
+          </ul>
+        </div>
+        <div class="event">
+          <div class="event-name" data-key="kaliPuja">Kali Puja</div>
+          <div class="event-date">Montag, 20. Oktober 2025</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 data-key="templeLocation">Wo finden Sie unseren Tempel?</h2>
+        <div>Herbststraße 54, 1160 Wien</div>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2656.989543151412!2d16.31554731139083!3d48.21860347148513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476da9a4c7a0c9d5%3A0x5e9a0e9a0e9a0e9a!2sHerbststra%C3%9Fe%2054%2C%201160%20Wien!5e0!3m2!1sde!2sat!4v1715000000000!5m2!1sde!2sat" 
+            allowfullscreen="" 
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="floating-contact">
+    <h3 data-key="contact">Kontakt</h3>
+    <p>Herbststraße 54<br>1160 Wien<br>
+    <a href="mailto:hindu@kulturverein.com">hindu@kulturverein.com</a></p>
+  </div>
+
+  <footer>
+    © 2025 Bho Kulturverein
+  </footer>
+
+  <script>
+    // Mehrsprachige Texte
+    const translations = {
+      de: {
+        futureEvents: "Zukünftige Events",
+        durgaPuja: "Durga Puja / Navaratri",
+        kaliPuja: "Kali Puja",
+        templeLocation: "Wo finden Sie unseren Tempel?",
+        contact: "Kontakt",
+        mahaSashthi: "Maha Sashthi",
+        mahaSaptami: "Maha Saptami",
+        mahaAshtami: "Maha Ashtami",
+        mahaNavami: "Maha Navami",
+        vijayaDashami: "Vijaya Dashami"
+      },
+      en: {
+        futureEvents: "Upcoming Events",
+        durgaPuja: "Durga Puja / Navaratri",
+        kaliPuja: "Kali Puja",
+        templeLocation: "Where to find our temple?",
+        contact: "Contact",
+        mahaSashthi: "Maha Sashthi",
+        mahaSaptami: "Maha Saptami",
+        mahaAshtami: "Maha Ashtami",
+        mahaNavami: "Maha Navami",
+        vijayaDashami: "Vijaya Dashami"
+      },
+      bn: {
+        futureEvents: "আসন্ন ইভেন্টগুলি",
+        durgaPuja: "দুর্গা পূজা / নবরাত্রি",
+        kaliPuja: "কালী পূজা",
+        templeLocation: "আমাদের মন্দিরটি কোথায় পাবেন?",
+        contact: "যোগাযোগ",
+        mahaSashthi: "মহা ষষ্ঠী",
+        mahaSaptami: "মহা সপ্তমী",
+        mahaAshtami: "মহা অষ্টমী",
+        mahaNavami: "মহা নবমী",
+        vijayaDashami: "বিজয়া দশমী"
+      }
+    };
+
+    let currentLang = 'de';
+
+    // Sprache wechseln
+    function switchLanguage(lang) {
+      if (!translations[lang]) return;
+      
+      currentLang = lang;
+      
+      // Alle übersetzbaren Elemente aktualisieren
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      // Buttons aktualisieren
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      // HTML-Sprache anpassen (für Zugänglichkeit)
+      document.documentElement.lang = lang;
+    }
+
+    // Event-Listener für Sprachbuttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchLanguage(btn.dataset.lang);
+      });
+    });
+
+    // Banner-Slideshow (unverändert)
+    const bannerSlides = document.getElementById('bannerSlides');
+    const bannerDots = document.querySelectorAll('.banner-dot');
+    let currentSlide = 0;
+    const totalSlides = bannerDots.length;
+
+    function goToSlide(index) {
+      currentSlide = index;
+      bannerSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+      bannerDots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }
+
+    let slideInterval = setInterval(nextSlide, 5000);
+
+    bannerDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        goToSlide(parseInt(dot.dataset.index));
+        slideInterval = setInterval(nextSlide, 5000);
+      });
+    });
+
+    const banner = document.querySelector('.banner');
+    banner.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    banner.addEventListener('mouseleave', () => {
+      slideInterval = setInterval(nextSlide, 5000);
+    });
+
+    // Standard: Deutsch aktiv
+    document.querySelector('.lang-btn[data-lang="de"]').classList.add('active');
+  </script>
+</body>
+</html>

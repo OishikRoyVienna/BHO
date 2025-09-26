@@ -158,12 +158,6 @@
       color: #111;
     }
 
-    .event-date {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
-    }
-
     .event-list {
       list-style: none;
       padding-left: 0;
@@ -175,16 +169,6 @@
       flex-wrap: wrap;
       gap: 0.75rem;
       font-size: 0.95rem;
-    }
-
-    .event-date-day {
-      font-weight: 500;
-      min-width: 130px;
-    }
-
-    .event-date-weekday {
-      color: #777;
-      min-width: 90px;
     }
 
     .map-container {
@@ -248,29 +232,19 @@
       .banner {
         height: 250px;
       }
-      
       header {
         padding: 1rem;
       }
-      
       .logo {
         height: 45px;
       }
-      
-      .event-date-day,
-      .event-date-weekday {
-        min-width: auto;
-      }
-      
       .event-list li {
         flex-direction: column;
         gap: 0.3rem;
       }
-      
       .map-container {
         height: 250px;
       }
-      
       .floating-contact {
         width: 200px;
         right: 16px;
@@ -308,43 +282,19 @@
         <h2 data-key="futureEvents">Zukünftige Events</h2>
         <div class="event">
           <div class="event-name" data-key="durgaPuja">Durga Puja / Navaratri</div>
-          <ul class="event-list">
-            <li>
-              <span class="event-date-day">28. September 2025</span>
-              <span class="event-date-weekday">Sonntag</span>
-              <span data-key="mahaSashthi">Maha Sashthi</span>
-            </li>
-            <li>
-              <span class="event-date-day">29. September 2025</span>
-              <span class="event-date-weekday">Montag</span>
-              <span data-key="mahaSaptami">Maha Saptami</span>
-            </li>
-            <li>
-              <span class="event-date-day">30. September 2025</span>
-              <span class="event-date-weekday">Dienstag</span>
-              <span data-key="mahaAshtami">Maha Ashtami</span>
-            </li>
-            <li>
-              <span class="event-date-day">1. Oktober 2025</span>
-              <span class="event-date-weekday">Mittwoch</span>
-              <span data-key="mahaNavami">Maha Navami</span>
-            </li>
-            <li>
-              <span class="event-date-day">2. Oktober 2025</span>
-              <span class="event-date-weekday">Donnerstag</span>
-              <span data-key="vijayaDashami">Vijaya Dashami</span>
-            </li>
+          <ul class="event-list" id="durgaPujaList">
+            <!-- Inhalt wird per JS generiert -->
           </ul>
         </div>
         <div class="event">
           <div class="event-name" data-key="kaliPuja">Kali Puja</div>
-          <div class="event-date">Montag, 20. Oktober 2025</div>
+          <div class="event-date" id="kaliPujaDate">Montag, 20. Oktober 2025</div>
         </div>
       </div>
 
       <div class="section">
         <h2 data-key="templeLocation">Wo finden Sie unseren Tempel?</h2>
-        <div>Herbststraße 54, 1160 Wien</div>
+        <div id="templeAddress">Herbststraße 54, 1160 Wien</div>
         <div class="map-container">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2656.989543151412!2d16.31554731139083!3d48.21860347148513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476da9a4c7a0c9d5%3A0x5e9a0e9a0e9a0e9a!2sHerbststra%C3%9Fe%2054%2C%201160%20Wien!5e0!3m2!1sde!2sat!4v1715000000000!5m2!1sde!2sat" 
@@ -359,7 +309,7 @@
 
   <div class="floating-contact">
     <h3 data-key="contact">Kontakt</h3>
-    <p>Herbststraße 54<br>1160 Wien<br>
+    <p id="contactDetails">Herbststraße 54<br>1160 Wien<br>
     <a href="mailto:hindu@kulturverein.com">hindu@kulturverein.com</a></p>
   </div>
 
@@ -368,7 +318,7 @@
   </footer>
 
   <script>
-    // Mehrsprachige Texte
+    // Vollständige Übersetzungen inkl. Daten
     const translations = {
       de: {
         futureEvents: "Zukünftige Events",
@@ -376,11 +326,16 @@
         kaliPuja: "Kali Puja",
         templeLocation: "Wo finden Sie unseren Tempel?",
         contact: "Kontakt",
-        mahaSashthi: "Maha Sashthi",
-        mahaSaptami: "Maha Saptami",
-        mahaAshtami: "Maha Ashtami",
-        mahaNavami: "Maha Navami",
-        vijayaDashami: "Vijaya Dashami"
+        templeAddress: "Herbststraße 54, 1160 Wien",
+        contactDetails: "Herbststraße 54<br>1160 Wien<br><a href='mailto:hindu@kulturverein.com'>hindu@kulturverein.com</a>",
+        durgaPujaEvents: [
+          { date: "28. September 2025", weekday: "Sonntag", event: "Maha Sashthi" },
+          { date: "29. September 2025", weekday: "Montag", event: "Maha Saptami" },
+          { date: "30. September 2025", weekday: "Dienstag", event: "Maha Ashtami" },
+          { date: "1. Oktober 2025", weekday: "Mittwoch", event: "Maha Navami" },
+          { date: "2. Oktober 2025", weekday: "Donnerstag", event: "Vijaya Dashami" }
+        ],
+        kaliPujaDate: "Montag, 20. Oktober 2025"
       },
       en: {
         futureEvents: "Upcoming Events",
@@ -388,11 +343,16 @@
         kaliPuja: "Kali Puja",
         templeLocation: "Where to find our temple?",
         contact: "Contact",
-        mahaSashthi: "Maha Sashthi",
-        mahaSaptami: "Maha Saptami",
-        mahaAshtami: "Maha Ashtami",
-        mahaNavami: "Maha Navami",
-        vijayaDashami: "Vijaya Dashami"
+        templeAddress: "Herbststraße 54, 1160 Vienna",
+        contactDetails: "Herbststraße 54<br>1160 Vienna<br><a href='mailto:hindu@kulturverein.com'>hindu@kulturverein.com</a>",
+        durgaPujaEvents: [
+          { date: "September 28, 2025", weekday: "Sunday", event: "Maha Sashthi" },
+          { date: "September 29, 2025", weekday: "Monday", event: "Maha Saptami" },
+          { date: "September 30, 2025", weekday: "Tuesday", event: "Maha Ashtami" },
+          { date: "October 1, 2025", weekday: "Wednesday", event: "Maha Navami" },
+          { date: "October 2, 2025", weekday: "Thursday", event: "Vijaya Dashami" }
+        ],
+        kaliPujaDate: "Monday, October 20, 2025"
       },
       bn: {
         futureEvents: "আসন্ন ইভেন্টগুলি",
@@ -400,23 +360,49 @@
         kaliPuja: "কালী পূজা",
         templeLocation: "আমাদের মন্দিরটি কোথায় পাবেন?",
         contact: "যোগাযোগ",
-        mahaSashthi: "মহা ষষ্ঠী",
-        mahaSaptami: "মহা সপ্তমী",
-        mahaAshtami: "মহা অষ্টমী",
-        mahaNavami: "মহা নবমী",
-        vijayaDashami: "বিজয়া দশমী"
+        templeAddress: "হার্বস্টস্ট্রাসে ৫৪, ১১৬০ ভিয়েনা",
+        contactDetails: "হার্বস্টস্ট্রাসে ৫৪<br>১১৬০ ভিয়েনা<br><a href='mailto:hindu@kulturverein.com'>hindu@kulturverein.com</a>",
+        durgaPujaEvents: [
+          { date: "২৮ সেপ্টেম্বর, ২০২৫", weekday: "রবিবার", event: "মহা ষষ্ঠী" },
+          { date: "২৯ সেপ্টেম্বর, ২০২৫", weekday: "সোমবার", event: "মহা সপ্তমী" },
+          { date: "৩০ সেপ্টেম্বর, ২০২৫", weekday: "মঙ্গলবার", event: "মহা অষ্টমী" },
+          { date: "১ অক্টোবর, ২০২৫", weekday: "বুধবার", event: "মহা নবমী" },
+          { date: "২ অক্টোবর, ২০২৫", weekday: "বৃহস্পতিবার", event: "বিজয়া দশমী" }
+        ],
+        kaliPujaDate: "সোমবার, ২০ অক্টোবর, ২০২৫"
       }
     };
 
     let currentLang = 'de';
 
-    // Sprache wechseln
+    function renderEvents() {
+      const list = document.getElementById('durgaPujaList');
+      const dateEl = document.getElementById('kaliPujaDate');
+      const addrEl = document.getElementById('templeAddress');
+      const contactEl = document.getElementById('contactDetails');
+
+      list.innerHTML = '';
+      translations[currentLang].durgaPujaEvents.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="event-date-day">${item.date}</span>
+          <span class="event-date-weekday">${item.weekday}</span>
+          <span>${item.event}</span>
+        `;
+        list.appendChild(li);
+      });
+
+      dateEl.textContent = translations[currentLang].kaliPujaDate;
+      addrEl.textContent = translations[currentLang].templeAddress;
+      contactEl.innerHTML = translations[currentLang].contactDetails;
+    }
+
     function switchLanguage(lang) {
       if (!translations[lang]) return;
       
       currentLang = lang;
       
-      // Alle übersetzbaren Elemente aktualisieren
+      // Statische Texte
       document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (translations[lang][key]) {
@@ -424,12 +410,14 @@
         }
       });
 
+      // Dynamische Inhalte (Daten, Adressen)
+      renderEvents();
+
       // Buttons aktualisieren
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
 
-      // HTML-Sprache anpassen (für Zugänglichkeit)
       document.documentElement.lang = lang;
     }
 
@@ -473,8 +461,8 @@
       slideInterval = setInterval(nextSlide, 5000);
     });
 
-    // Standard: Deutsch aktiv
-    document.querySelector('.lang-btn[data-lang="de"]').classList.add('active');
+    // Initiale Sprache: Deutsch
+    switchLanguage('de');
   </script>
 </body>
 </html>
